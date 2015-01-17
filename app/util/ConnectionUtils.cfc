@@ -1,7 +1,7 @@
 /**
 *
 * @author  felipeam1985 [at] gmail
-* @description
+* @description Classe responsável pela conexão com o banco e recuperação do database
 *
 */
 

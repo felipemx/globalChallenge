@@ -1,7 +1,7 @@
 /**
 *
 * @author  felipeam1985 [at] gmail
-* @description
+* @description Classe que centraliza os métodos de conexão com o banco e execução de Query simples via AQL (Arango Query Language) e é estendida por todas as classes da camada de controle. Estes métodos vieram para esta classe pois no Railo os métodos de interface não podem ser privados
 *
 */
 

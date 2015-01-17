@@ -1,7 +1,7 @@
 /**
 *
 * @author  felipeam1985 [at] gmail
-* @description
+* @description Classe que realiza a interação com o banco de dados no que se refere à coleção "apps"
 *
 */
 

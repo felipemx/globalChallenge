@@ -1,7 +1,7 @@
 /**
 *
 * @author  felipeam1985 [at] gmail
-* @description
+* @description Interface para definir os métodos comuns entre as classes da camada de modelo
 *
 */
 

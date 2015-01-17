@@ -1,7 +1,7 @@
 /**
 *
 * @author  felipeam1985 [at] gmail
-* @description
+* @description Classe que controla a troca de mensagens entre o requisitor e a camada de modelo, aplicando as validações necessárias
 *
 */
 

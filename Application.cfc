@@ -1,7 +1,7 @@
 /**
 *
 * @author  felipeam1985 [at] gmail
-* @description
+* @description Classe que define comportamentos globais para a aplicação
 *
 */
 
