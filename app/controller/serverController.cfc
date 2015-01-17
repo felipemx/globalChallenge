@@ -87,6 +87,9 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 	public boolean function delete(numeric id){
 
 		try{
+			var appModel = createObject("component", "globalChallenge.app.controller.appController");
+			var appRemove = appModel.deleteByExample("serverId", "servers/#ARGUMENTS.id#");
+			
 			var execution = model.delete(ARGUMENTS.id);
 			var result = (execution.deleted EQ 1);
 			

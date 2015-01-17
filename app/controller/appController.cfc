@@ -93,6 +93,20 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 		}
 	};
 
+	public boolean function deleteByExample(string key, string value){
+
+		THIS.validateDeleteByExample(ARGUMENTS.key, ARGUMENTS.value)
+		try{
+			var execution = model.deleteByExample(ARGUMENTS.key, ARGUMENTS.value);
+			var result = (execution.deleted EQ 1);
+			
+			return result;
+		}
+		catch(any e){
+			throw(type="DatabaseError", message="There was a problem with the database connection");
+		}
+	};
+
 
 	/* VALIDATION - subir para o controller*/
 	private void function validateRead(string key, any value) {
@@ -154,11 +168,22 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 		}
 	}
 
+	private void function validateDeleteByExample(string key, string value) {
+
+		if(compareNoCase(ARGUMENTS.key, "") EQ 0){
+			throw(type="InvalidData", message="Invalid key");
+		}
+
+		if(compareNoCase(ARGUMENTS.value, "") EQ 0){
+			throw(type="InvalidData", message="Invalid value");
+		}
+	}
+
 	private void function validateServer(string serverId) {
 		
 		VARIABLES.serverController = createObject("component", "globalChallenge.app.controller.serverController");
 		serverController.init();
-		VARIABLES.validServer = serverController.read("_id", ARGUMENTS.serverId);
+		VARIABLES.validServer = serverController.read("_key", ARGUMENTS.serverId);
 
 		if(compareNoCase(VARIABLES.validServer, "") EQ 0){
 			throw(type="InvalidData", message="Invalid Server");

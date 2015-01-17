@@ -68,7 +68,20 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 	public struct function delete(numeric id){
 		try{
 			var collection = THIS.getCollection(THIS.collectionName);
-			var parameter = {"_key" = "#toString(id)#"};
+			var parameter = {"_key" = "#toString(ARGUMENTS.id)#"};
+			var execution = collection.deleteByExample(parameter);
+			
+			return execution;
+		}
+		catch(any e){
+			throw(type="DatabaseError", message="There was a problem with the database connection");
+		}
+	};
+
+	public struct function deleteByExample(string key, string value){
+		try{
+			var collection = THIS.getCollection(THIS.collectionName);
+			var parameter = {"#ARGUMENTS.key#" = "#toString(ARGUMENTS.value)#"};
 			var execution = collection.deleteByExample(parameter);
 			
 			return execution;
