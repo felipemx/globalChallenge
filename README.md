@@ -104,7 +104,6 @@ s = db.servers.firstExample({"name":"Cowboy"});
 db.apps.save({"name":"CandlestickApp", "serverId":s._id});
 
 » Falta implementar:
-   - Acertar todos os descriptions
    - Criar a API em Javascript
    - Criar um exemplo de client
    - Fazer o acerto entre as camadas de webservice e controller no CFML
