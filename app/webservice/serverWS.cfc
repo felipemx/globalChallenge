@@ -1,0 +1,41 @@
+/**
+*
+* @author felipeam1985 [at] gmail
+* @description Classe que comporta os métodos para interação com a camada de controle referente à coleção "Servers" da base de dados
+*
+*/
+
+component implements="interface.iGlobalChallengeWS" rest="true" restPath="/server"  {
+
+	VARIABLES.serverController = createObject("component", "globalChallenge.app.controller.serverController");
+
+	remote string function listAll() httpmethod="GET" produces="application/JSON"{
+
+		//var result = serverController.list();
+		//return result;
+		var message = "list";
+		return message;
+
+	}
+
+	remote string function read(numeric id restArgSource="path") httpmethod="GET" produces="application/JSON" restPath="{id}"{
+		var message = "read " & arguments.id;
+		return message;
+	}
+
+	remote string function create() httpmethod="POST" produces="application/JSON"{
+		var message = "create";
+		return message;
+	}
+
+	remote string function update() httpmethod="PUT" produces="application/JSON" {
+		var message = "update";
+		return message;
+	}
+	
+	remote boolean function delete() httpmethod="DELETE" produces="application/JSON" {
+		var message = "delete";
+		return message;
+	}
+	
+}
