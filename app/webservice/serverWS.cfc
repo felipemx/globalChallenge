@@ -7,12 +7,8 @@
 
 component implements="interface.iGlobalChallengeWS" rest="true" restPath="/server"  {
 
-	VARIABLES.serverController = createObject("component", "globalChallenge.app.controller.serverController");
-
 	remote string function listAll() httpmethod="GET" produces="application/JSON"{
 
-		//var result = serverController.list();
-		//return result;
 		var message = "list";
 		return message;
 
@@ -33,7 +29,7 @@ component implements="interface.iGlobalChallengeWS" rest="true" restPath="/serve
 		return message;
 	}
 	
-	remote boolean function delete() httpmethod="DELETE" produces="application/JSON" {
+	remote string function delete() httpmethod="DELETE" produces="application/JSON" {
 		var message = "delete";
 		return message;
 	}

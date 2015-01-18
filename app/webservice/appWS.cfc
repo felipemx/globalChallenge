@@ -27,7 +27,7 @@ component implements="interface.iGlobalChallengeWS" rest="true" restPath="/app" 
 		return message;
 	}
 	
-	remote boolean function delete() httpmethod="DELETE" produces="application/JSON" {
+	remote string function delete() httpmethod="DELETE" produces="application/JSON" {
 		var message = "delete";
 		return message;
 	}
