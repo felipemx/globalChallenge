@@ -7,6 +7,12 @@ ArangoDB 2.3.4 (https://www.arangodb.com/)
 
 Download: https://www.arangodb.com/download
 
+Estrutura de front-end utilizada:
+
+Para o funcionamento da API JS é necessário utilizar a versão 1.11.2 da biblioteca jQuery (http://jquery.com/)
+
+Download: http://jquery.com/download/
+
 Estrutura de back-end utilizada:
 
 CFML rodando em cima do Railo Express v4.2.1.008 com Jetty, na porta 8888.
