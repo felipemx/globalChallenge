@@ -8,30 +8,56 @@
 component implements="interface.iGlobalChallengeWS" rest="true" restPath="/server"  {
 
 	remote string function listAll() httpmethod="GET" produces="application/JSON"{
+		var controller = createObject("component", "globalChallenge.app.controller.serverController");
+		var response = controller.list();
 
-		var message = "list";
-		return message;
+		return response;
+		//var message = "list";
+		//return message;
 
 	}
 
 	remote string function read(numeric id restArgSource="path") httpmethod="GET" produces="application/JSON" restPath="{id}"{
-		var message = "read " & arguments.id;
-		return message;
+		var controller = createObject("component", "globalChallenge.app.controller.serverController");
+		var response = controller.read("_key", ARGUMENTS.id);
+
+		return response;
+		//var message = "read " & arguments.id;
+		//return message;
 	}
 
 	remote string function create() httpmethod="POST" produces="application/JSON"{
-		var message = "create";
-		return message;
+		var controller = createObject("component", "globalChallenge.app.controller.serverController");
+		var document = {
+			"_name" = FORM.name
+		};
+		var response = controller.create(document);
+
+		return response;
+		//var message = "create";
+		//return message;
 	}
 
 	remote string function update() httpmethod="PUT" produces="application/JSON" {
-		var message = "update";
-		return message;
+		var controller = createObject("component", "globalChallenge.app.controller.serverController");
+		var document = {
+			"_key" = FORM.id,
+			"_name" = FORM.name
+		};
+		var response = controller.create(document);
+
+		return response;
+		//var message = "update";
+		//return message;
 	}
 	
 	remote string function delete() httpmethod="DELETE" produces="application/JSON" {
-		var message = "delete";
-		return message;
+		var controller = createObject("component", "globalChallenge.app.controller.serverController");
+		var response = controller.delete(id);
+
+		return response;
+		//var message = "delete";
+		//return message;
 	}
 	
 }
