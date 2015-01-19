@@ -59,7 +59,8 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 			var collection = THIS.getCollection(THIS.collectionName);
 			var execution = collection.updateByExample(ARGUMENTS.find, ARGUMENTS.update);
 
-			return execution;		}
+			return execution;		
+		}
 		catch(any e){
 			throw(type="DatabaseError", message="There was a problem with the database connection");
 		}
