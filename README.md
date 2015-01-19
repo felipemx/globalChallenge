@@ -15,7 +15,7 @@ Download: http://jquery.com/download/
 
 Estrutura de back-end utilizada:
 
-CFML rodando em cima do Railo Express v4.2.1.008 com Jetty, na porta 8888.
+CFML rodando em cima do Railo Express v4.2.1.008 com Jetty, na porta 8888 com testes utilizando MXUnit.
 
 Download: http://www.getrailo.org/index.cfm/download/
 
@@ -37,14 +37,24 @@ URL: http://127.0.0.1:8888/railo-context/admin/web.cfm
    
    Physical: {caminho-pasta-raiz-do-projeto}
    
+   Virtual: mxunit
+   
+   Phisycal: {railo-express-home}\webapps\ROOT\mxunit
+   
 Driver: CFArango
 
 URL: https://github.com/dajester2013/CFArango
 
 Clonar para: {railo-express-home}\webapps\ROOT\
- 
- 
- 
+
+Ferramenta de Testes Unitários:
+
+MXUnit (http://mxunit.org/ - https://github.com/mxunit/mxunit)
+
+Download: https://github.com/downloads/mxunit/mxunit/mxunit-2.1.3.zip
+
+Descarregar em: {railo-express-home}\webapps\ROOT\
+
 ArangoDB v2.3.4
 
 Arango Web Interface: http://localhost:8529/
