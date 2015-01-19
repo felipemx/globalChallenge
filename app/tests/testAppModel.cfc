@@ -1,14 +1,14 @@
 /**
 *
 * @author  felipeam1985 [at] gmail
-* @description Classe de teste do serverModel.cfc
+* @description Classe de teste do appModel.cfc
 *
 */
 
 component extends="mxunit.framework.TestCase" {
 	
 	function setUp(){ 
-		VARIABLES.modelTest = createObject("component", "globalChallenge.app.model.serverModel");
+		VARIABLES.modelTest = createObject("component", "globalChallenge.app.model.appModel");
 	}
 
 	function tearDown(){ }
@@ -41,33 +41,40 @@ component extends="mxunit.framework.TestCase" {
 	}
 
 	function testCreate(){
-		var document = {"name" = "Testing"};
+		var document = {"name" = "Testing", "serverId" = "1"};
 		VARIABLES.result = VARIABLES.modelTest.create(document);
 		assertTrue(isInstanceOf(VARIABLES.result, "document"), 'Test failed');		
 	}
 
 	function testUpdate(){
-		var document = {"id" = "1", "name" = "Testing"};
+		var document = {"id" = "1", "name" = "Testing", "serverId" = "1"};
 		VARIABLES.result = VARIABLES.modelTest.create(document);
 		assertIsStruct(VARIABLES.result, 'Test failed');
 	}
 
 	function testUpdateInvalidKey() {
-		var document = {"id" = 1, "name" = "Testing"};
+		var document = {"id" = 1, "name" = "Testing", "serverId" = "1"};
 		VARIABLES.result = VARIABLES.modelTest.update(document);
 		assertFalse(isQuery(VARIABLES.result), 'Test failed');
 		fail("Expected behavior");
 	}
 	
 	function testUpdateInvalidValue() {
-		var document = {"id" = "1", "name" = 2};
+		var document = {"id" = "1", "name" = 2, "serverId" = "1"};
 		VARIABLES.result = VARIABLES.modelTest.update(document);
 		assertFalse(isQuery(VARIABLES.result), 'Test failed');
 		fail("Expected behavior");
 	}
 
+	function testUpdateInvalidServerID() {
+		var document = {"id" = "1", "name" = "Testing", "serverId" = 1};
+		VARIABLES.result = VARIABLES.modelTest.update(document);
+		assertFalse(isQuery(VARIABLES.result), 'Test failed');
+		fail("Expected behavior");
+	}
+	
 	function testUpdateInvalidParams() {
-		var document = {"id" = 1, "name" = 2};
+		var document = {"id" = 1, "name" = 2, "serverId" = 1};
 		VARIABLES.result = VARIABLES.modelTest.update(document);
 		assertFalse(isQuery(VARIABLES.result), 'Test failed');
 		fail("Expected behavior");
