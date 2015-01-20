@@ -1,0 +1,44 @@
+*{
+	font-family: "Arial", sans-serif;
+}
+
+main table{
+	font-size: .9em;
+	width: 100%;
+}
+
+main table th{
+	text-align: center;
+}
+
+main table tr{
+	height: 45px;
+}
+
+main table tr:nth-child(even){
+	background-color: #EEE;
+}
+
+main table tr:first-child{
+	text-align: right;
+}
+
+.botao{
+	font-size: 1.3em;
+	font-weight: bold;
+	text-decoration: none;
+	color: #FFF;
+	width: 150px;
+	padding: 5px;
+}
+
+.adicionar{
+	background-color: #3311FF;
+	border: solid 1px #22CCAA inset;
+	right: 0;
+}
+
+.excluir{
+	background-color: #FF0000;
+	border: solid 1px #AA1234;
+}

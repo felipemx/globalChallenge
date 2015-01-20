@@ -14,8 +14,6 @@ function ServerComponent(){
 	var id;
 	var name;
 	var defaultUrl;
-	var response;
-	var errorMessage;
 
 	//Bean methods
 	this.getId = function(){
@@ -38,84 +36,72 @@ function ServerComponent(){
 		return new GCConfig().getDefaultUrl();
 	}
 
-	this.getResponse = function(){
-		return this.response;
-	}
-
-	this.setResponse = function(content){
-		this.response = content;
-	}
-
-	this.getErrorMessage = function(){
-		return this.errorMessage;
-	}
-
-	this.setErrorMessage = function(content){
-		this.errorMessage = content;
-		console.log(this.getErrorMessage());
-	}
-
 	//Business methods
-	this.list = function(){
+	this.list = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'server/',
 		    type: 'GET'
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(JSON.parse(result));
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 
-	this.read = function(){
+	this.read = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'server/' + this.getId(),
 		    type: 'GET'
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(JSON.parse(result));
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 
-	this.create = function(){
+	this.create = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'server/',
 		    type: 'POST',
 		    data: {"name" : this.getName() }
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(JSON.parse(result));
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 
-	this.update = function(){
+	this.update = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'server/',
 		    type: 'PUT',
 		    data: {"id" : this.getId(), "name" : this.getName() }
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(result);
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 
-	this.delete = function(){
+	this.delete = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'server/',
 		    type: 'DELETE',
 		    data: {"id" : this.getId()}
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(result);
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 }
@@ -125,8 +111,6 @@ function ApplicationComponent(){
 	var name;
 	var server;
 	var defaultUrl;
-	var response;
-	var errorMessage;
 
 	//Bean methods
 	this.getId = function(){
@@ -157,84 +141,72 @@ function ApplicationComponent(){
 		return new GCConfig().getDefaultUrl();
 	}
 
-	this.getResponse = function(){
-		return this.response;
-	}
-
-	this.setResponse = function(content){
-		this.response = content;
-	}
-
-	this.getErrorMessage = function(){
-		return this.errorMessage;
-	}
-
-	this.setErrorMessage = function(content){
-		this.errorMessage = content;
-		console.log(this.getErrorMessage());
-	}
-
 	//Business methods
-	this.list = function(){
+	this.list = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'app/',
 		    type: 'GET'
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(JSON.parse(result));
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 
-	this.read = function(){
+	this.read = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'app/' + this.getId(),
 		    type: 'GET'
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(JSON.parse(result));
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 
-	this.create = function(){
+	this.create = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'app/',
 		    type: 'POST',
 		    data: {"name" : this.getName(), "serverId" : this.getServer().getId() }
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(JSON.parse(result));
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 
-	this.update = function(){
+	this.update = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'app/',
 		    type: 'PUT',
 		    data: {"id" : this.getId(), "name" : this.getName(), "serverId" : this.getServer().getId() }
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(result);
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+
 			});
 	}
 
-	this.delete = function(){
+	this.delete = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'app/',
 		    type: 'DELETE',
 		    data: {"id" : this.getId()}
 		}).done(function(result) {
-				this.setResponse(result);
+				callbackFn(result);
 			})
 			.fail(function(e) {
-				this.setErrorMessage(e);
+				console.log(e);
+				
 			});
 	}
 }
