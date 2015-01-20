@@ -33,12 +33,29 @@ main table tr:first-child{
 }
 
 .adicionar{
-	background-color: #3311FF;
+	background-color: #274996;
 	border: solid 1px #22CCAA inset;
 	right: 0;
 }
+.adicionar:hover{
+	background-color: #98B1ED;
+}
+
+.editar{
+	background-color: #E5FF00;
+	color: #000;
+	border: solid 1px #F1FF70;
+	margin-right: 25px;
+}
+.editar:hover{
+	background-color: #E8EDBB;
+}
+
 
 .excluir{
 	background-color: #FF0000;
 	border: solid 1px #AA1234;
+}
+.excluir:hover{
+	background-color: #ED6161;
 }

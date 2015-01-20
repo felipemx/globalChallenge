@@ -40,10 +40,16 @@ function criarConteudoTabela(itemServidor){
 	var celulaDescricao = document.createElement("td");
 	var descricao = document.createElement("a");
 	var celulaBotao = document.createElement("td");
+	var botaoEditar  = document.createElement("a");
 	var botaoRemover  = document.createElement("a");
 
 	descricao.setAttribute('href', '#?id=' + itemServidor[2]);
 	descricao.textContent = itemServidor[3];
+
+	botaoEditar.setAttribute('href', '#?id=' + itemServidor[2]);
+	botaoEditar.textContent = '* Editar';
+	botaoEditar.classList.add('botao');
+	botaoEditar.classList.add('editar');
 
 	botaoRemover.setAttribute('href', '#?id=' + itemServidor[2]);
 	botaoRemover.textContent = '- Excluir';
@@ -51,6 +57,7 @@ function criarConteudoTabela(itemServidor){
 	botaoRemover.classList.add('excluir');
 
 	celulaDescricao.appendChild(descricao);
+	celulaBotao.appendChild(botaoEditar);
 	celulaBotao.appendChild(botaoRemover);
 
 	linhaTabela.appendChild(celulaDescricao);
