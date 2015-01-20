@@ -121,7 +121,5 @@ db.apps.save({"name":"CandlestickApp", "serverId":s._id});
 
 » Falta implementar:
    - Criar um exemplo de client
-   - Fazer o acerto entre as camadas de webservice e controller no CFML
    - Produção de testes no Javascript
-   - Produção de testes no CFML
    - Utilizar um gerenciador de dependências
