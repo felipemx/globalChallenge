@@ -32,18 +32,19 @@ component implements="interface.iGlobalChallengeWS" rest="true" restPath="/app" 
 		return response;
 	}
 
-	remote string function update() httpmethod="PUT" produces="application/JSON" {
+	remote boolean function update() httpmethod="PUT" produces="application/JSON" {
 		var controller = createObject("component", "globalChallenge.app.controller.appController");
 		var document = {
-			"name" = name,
-			"serverId" = serverId
+			"_key" = FORM.id,
+			"name" = FORM.name,
+			"serverId" = FORM.serverId
 		};
 		var response = controller.update(document);
 
 		return response;
 	}
 	
-	remote string function delete() httpmethod="DELETE" produces="application/JSON" {
+	remote boolean function delete() httpmethod="DELETE" produces="application/JSON" {
 		var controller = createObject("component", "globalChallenge.app.controller.appController");
 		var response = controller.delete(id);
 

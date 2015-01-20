@@ -8,6 +8,6 @@
 interface{
 	remote string function read(numeric id restArgSource="path") httpmethod="GET" produces="application/JSON" restPath="{id}"{};
 	remote string function create() httpmethod="POST" produces="application/JSON"{};
-	remote string function update() httpmethod="PUT" produces="application/JSON"{};
-	remote string function delete() httpmethod="DELETE" produces="application/JSON"{};
+	remote boolean function update() httpmethod="PUT" produces="application/JSON"{};
+	remote boolean function delete() httpmethod="DELETE" produces="application/JSON"{};
 }

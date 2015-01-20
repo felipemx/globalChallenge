@@ -2,6 +2,9 @@
 <html>
 <head>
 	<title>Global Challenge Sample Page</title>
+
+	<meta charset="UTF-8">
+
 	<script type="text/javascript" src="../jsapi/libs/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="../jsapi/GlobalChallengeAPI.js"></script>
 	<script type="text/javascript" src="js/indexController.js"></script>
@@ -25,6 +28,14 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<form action="#" accept-charset="utf-8" class="oculto">
+			<h2>Formulário de Servidor</h2>
+			<label>Nome do Servidor:<input type="text" name="nome" id="nome" value="" required title="Informe o nome do campo"></label>
+			<input type="hidden" name="id" id="id" value="">
+			<button id="enviar" type="button" onclick="enviaFormulario()">Enviar</button>
+			<button id="cancelar" type="reset" onclick="desabilitaFormulario()">Cancelar</button>
+		</form>
 	</main>
 </body>
 </html>

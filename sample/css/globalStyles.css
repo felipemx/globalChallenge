@@ -59,3 +59,41 @@ main table tr:first-child{
 .excluir:hover{
 	background-color: #ED6161;
 }
+
+form{
+	font-size: .8em;
+	background-color: rgba(39, 73, 150, .1);
+	padding: 10px;
+	width: 300px;
+}
+
+label{
+	font-weight: bold;
+}
+
+input[type='text']{
+	display: block;
+	margin: 7px;
+}
+
+button{
+	font-size: 1.3em;
+	font-weight: bold;
+	text-decoration: none;
+	color: #FFF;
+	cursor: pointer;
+	width: 125px;
+	padding: 5px;
+	
+	float: left;
+}
+
+button[id='enviar']{
+	background-color: #149606;
+}
+
+button[id='cancelar']{
+	background-color: #FF410D;
+}
+
+.oculto{display: none;}

@@ -12,9 +12,6 @@ component implements="interface.iGlobalChallengeWS" rest="true" restPath="/serve
 		var response = controller.list();
 
 		return response;
-		//var message = "list";
-		//return message;
-
 	}
 
 	remote string function read(numeric id restArgSource="path") httpmethod="GET" produces="application/JSON" restPath="{id}"{
@@ -22,42 +19,34 @@ component implements="interface.iGlobalChallengeWS" rest="true" restPath="/serve
 		var response = controller.read("_key", ARGUMENTS.id);
 
 		return response;
-		//var message = "read " & arguments.id;
-		//return message;
 	}
 
 	remote string function create() httpmethod="POST" produces="application/JSON"{
 		var controller = createObject("component", "globalChallenge.app.controller.serverController");
 		var document = {
-			"_name" = FORM.name
+			"_name" = name
 		};
 		var response = controller.create(document);
 
 		return response;
-		//var message = "create";
-		//return message;
 	}
 
-	remote string function update() httpmethod="PUT" produces="application/JSON" {
+	remote boolean function update() httpmethod="PUT" produces="application/JSON" {
 		var controller = createObject("component", "globalChallenge.app.controller.serverController");
 		var document = {
-			"_key" = FORM.id,
-			"_name" = FORM.name
+			"_key" = id,
+			"_name" = name
 		};
-		var response = controller.create(document);
+		var response = controller.update(document);
 
 		return response;
-		//var message = "update";
-		//return message;
 	}
 	
-	remote string function delete() httpmethod="DELETE" produces="application/JSON" {
+	remote boolean function delete() httpmethod="DELETE" produces="application/JSON" {
 		var controller = createObject("component", "globalChallenge.app.controller.serverController");
 		var response = controller.delete(id);
 
 		return response;
-		//var message = "delete";
-		//return message;
 	}
 	
 }
