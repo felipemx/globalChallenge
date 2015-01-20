@@ -32,40 +32,40 @@ component extends="mxunit.framework.TestCase" {
 	}
 
 	function testCreate(){
-		var document = {"name" = "Testing", "serverId" = "1"};
+		var document = {"name" = "Testing", "serverId" = "2"};
 		VARIABLES.result = VARIABLES.controllerTest.create(document);
 		assertTrue(isJSON(VARIABLES.result), 'Falha na criação de aplicação no Controller');
 	}
 
 	function testUpdate(){
-		var document = {"id" = "1", "name" = "Testing", "serverId" = "1"};
-		VARIABLES.result = VARIABLES.controllerTest.create(document);
+		var document = {"_key" = "1", "name" = "Testing", "serverId" = "2"};
+		VARIABLES.result = VARIABLES.controllerTest.update(document);
 		assertTrue(isBoolean(VARIABLES.result), 'Falha na atualização de aplicação no Controller');
 	}
 
 	function testUpdateInvalidKey() {
-		var document = {"id" = 1, "name" = "Testing", "serverId" = "1"};
+		var document = {"_key" = 1, "name" = "Testing", "serverId" = "2"};
 		VARIABLES.result = VARIABLES.controllerTest.update(document);
 		assertFalse(isBoolean(VARIABLES.result), 'Leitura de aplicação indevida: argumento KEY inválido no Controller');
 		fail("Expected behavior");
 	}
 	
 	function testUpdateInvalidValue() {
-		var document = {"id" = "1", "name" = 2, "serverId" = "1"};
+		var document = {"_key" = "1", "name" = 2, "serverId" = "2"};
 		VARIABLES.result = VARIABLES.controllerTest.update(document);
 		assertFalse(isBoolean(VARIABLES.result), 'Leitura de aplicação indevida: argumento NAME inválido no Controller');
 		fail("Expected behavior");
 	}
 
 	function testUpdateInvalidServerID() {
-		var document = {"id" = "1", "name" = 2, "serverId" = 1};
+		var document = {"_key" = "1", "name" = 2, "serverId" = 1};
 		VARIABLES.result = VARIABLES.controllerTest.update(document);
 		assertFalse(isBoolean(VARIABLES.result), 'Leitura de aplicação indevida: argumento SERVERID inválido no Controller');
 		fail("Expected behavior");
 	}	
 	
 	function testUpdateInvalidParams() {
-		var document = {"id" = 1, "name" = 2, "serverId" = 3};
+		var document = {"_key" = 1, "name" = 2, "serverId" = 3};
 		VARIABLES.result = VARIABLES.controllerTest.update(document);
 		assertFalse(isBoolean(VARIABLES.result), 'Leitura de aplicação indevida: parâmetros inválidos');
 		fail("Expected behavior");

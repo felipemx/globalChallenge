@@ -22,21 +22,21 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 			return result;
 		}
 		catch(any e){
-			throw(type="DatabaseError", message="There was a problem with the database connection");
+			throw(type="DatabaseError", message="There was a problem with the database connection. #e.message#");
 		}
 	};
 
 	public query function read(string key, string value){
 
-		//try{
+		try{
 			var collection = THIS.getCollection(VARIABLES.collectionName);
 			var result = collection.queryByExample({"#key#":"#value#"}).toQuery();
 			
 			return result;
-		//}
-		//catch(any e){
-		//	throw(type="DatabaseError", message="There was a problem with the database connection");
-		//}
+		}
+		catch(any e){
+			throw(type="DatabaseError", message="There was a problem with the database connection. #e.message#");
+		}
 	};
 
 	public document function create(struct document){
@@ -49,7 +49,7 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 			return execution;
 		}
 		catch(any e){
-			throw(type="DatabaseError", message="There was a problem with the database connection");
+			throw(type="DatabaseError", message="There was a problem with the database connection. #e.message#");
 		}
 	};
 
@@ -62,7 +62,7 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 			return execution;		
 		}
 		catch(any e){
-			throw(type="DatabaseError", message="There was a problem with the database connection");
+			throw(type="DatabaseError", message="There was a problem with the database connection. #e.message#");
 		}
 	};
 
@@ -76,7 +76,7 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 			return execution;
 		}
 		catch(any e){
-			throw(type="DatabaseError", message="There was a problem with the database connection");
+			throw(type="DatabaseError", message="There was a problem with the database connection. #e.message#");
 		}
 	};
 

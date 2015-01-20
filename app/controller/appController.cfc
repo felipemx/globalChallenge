@@ -182,8 +182,8 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 	private void function validateServer(string serverId) {
 		
 		VARIABLES.serverController = createObject("component", "globalChallenge.app.controller.serverController");
-		serverController.init();
-		VARIABLES.validServer = serverController.read("_key", ARGUMENTS.serverId);
+		VARIABLES.serverController.init();
+		VARIABLES.validServer = VARIABLES.serverController.read("_key", "#ARGUMENTS.serverId#");
 
 		if(compareNoCase(VARIABLES.validServer, "") EQ 0){
 			throw(type="InvalidData", message="Invalid Server");

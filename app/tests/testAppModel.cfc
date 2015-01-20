@@ -17,10 +17,15 @@ component extends="mxunit.framework.TestCase" {
 	}
 	
 	function testList(){
-		VARIABLES.result = VARIABLES.modelTest.list();
+		VARIABLES.result = VARIABLES.modelTest.listByServer("1");
 		assertIsQuery(VARIABLES.result, 'Falha na listagem de aplicações no Model');
 	}
 	
+	function testListInvalidServer(){
+		VARIABLES.result = VARIABLES.modelTest.listByServer(1);
+		assertFalse(isQuery(VARIABLES.result), 'Consulta de aplicação indevida: argumento ID inválido no Model');
+	}
+
 	function testRead() {
 		VARIABLES.result = VARIABLES.modelTest.read("_key","1");
 		assertIsQuery(VARIABLES.result, 'Falha na leitura de aplicação no Model');
@@ -29,7 +34,6 @@ component extends="mxunit.framework.TestCase" {
 	function testReadInvalidKey() {
 		VARIABLES.result = VARIABLES.modelTest.read(1,"1");
 		assertFalse(isQuery(VARIABLES.result), 'Leitura de aplicação indevida: argumento KEY inválido no Model');
-		fail("Expected behavior");
 	}
 	
 	function testReadInvalidValue() {
