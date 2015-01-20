@@ -7,8 +7,7 @@
 
 component output="false" {
 
-	property type="string" name="collectionName" default="";
-
+	VARIABLES.collectionName = "";
 	VARIABLES.connectionUtil = createObject("component", "globalChallenge.app.util.ConnectionUtils");
 	VARIABLES.connection = VARIABLES.connectionUtil.getConnection();
 

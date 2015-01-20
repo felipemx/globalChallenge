@@ -8,7 +8,7 @@
 component output="false" extends="baseModel" implements="interface.iGlobalChallengeModel" persistent="true"  {
 
 	public function init(){
-		THIS.collectionName = getProfileString(APPLICATION.configurationFile, "collections", "application");
+		VARIABLES.collectionName = getProfileString(VARIABLES.connectionUtil.getConfigurationFile(), "collections", "application");
 		return this;
 	}
 
@@ -29,7 +29,7 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 
 	public query function read(string key, string value){
 		try{
-			var collection = THIS.getCollection(THIS.collectionName);
+			var collection = THIS.getCollection(VARIABLES.collectionName);
 			var result = collection.queryByExample({"#key#":"#value#"}).toQuery();
 			
 			return result;
@@ -41,7 +41,7 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 
 	public document function create(struct document){
 		try{
-			var collection = THIS.getCollection(THIS.collectionName);
+			var collection = THIS.getCollection(VARIABLES.collectionName);
 			var document = collection.newDocument({"name" : "#ARGUMENTS.document.name#", "serverId" : "servers/#ARGUMENTS.document.serverId#"});
 			var execution = document.save();
 
@@ -54,7 +54,7 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 
 	public struct function update(struct find, struct update){
 		try{
-			var collection = THIS.getCollection(THIS.collectionName);
+			var collection = THIS.getCollection(VARIABLES.collectionName);
 			var execution = collection.updateByExample(ARGUMENTS.find, ARGUMENTS.update);
 
 			return execution;
@@ -67,7 +67,7 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 
 	public struct function delete(numeric id){
 		try{
-			var collection = THIS.getCollection(THIS.collectionName);
+			var collection = THIS.getCollection(VARIABLES.collectionName);
 			var parameter = {"_key" = "#toString(ARGUMENTS.id)#"};
 			var execution = collection.deleteByExample(parameter);
 			
@@ -80,7 +80,7 @@ component output="false" extends="baseModel" implements="interface.iGlobalChalle
 
 	public struct function deleteByExample(string key, string value){
 		try{
-			var collection = THIS.getCollection(THIS.collectionName);
+			var collection = THIS.getCollection(VARIABLES.collectionName);
 			var parameter = {"#ARGUMENTS.key#" = "#toString(ARGUMENTS.value)#"};
 			var execution = collection.deleteByExample(parameter);
 			

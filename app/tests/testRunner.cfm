@@ -1,4 +1,4 @@
-<cfset VARIABLES.mxTest = createObject( "component", "mxunit.framework.TestSuite" ).TestSuite() />
+<cfset VARIABLES.mxTest = createObject("component", "mxunit.framework.TestSuite").TestSuite() />
 <cfset VARIABLES.mxTest.addAll("globalChallenge.app.tests.testServerModel") />
 <cfset VARIABLES.mxTest.addAll("globalChallenge.app.tests.testAppModel") />
 <cfset VARIABLES.mxTest.addAll("globalChallenge.app.tests.testServerController") />
