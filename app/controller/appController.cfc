@@ -15,11 +15,11 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 	}
 
 	/* CRUD */
-	public string function list(numeric serverId){
+	public string function list(string serverId){
 
 		THIS.validateRead("serverId", ARGUMENTS.serverId);
 		try{
-			var result = model.listByServer(toString(ARGUMENTS.serverId));
+			var result = model.listByServer(toString(THIS.decodeServerID(ARGUMENTS.serverId)));
 			var resultJSON = serializeJSON(result);
 
 			return resultJSON;
@@ -64,11 +64,13 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 	public boolean function update(struct document){
 
 		THIS.validateUpdate(ARGUMENTS.document);
-		
+
 		try{
 			var find = {"_key" = "#toString(ARGUMENTS.document._key)#"}
-			var update = ARGUMENTS.document;
-			structDelete(update, "_key");
+			var update = {
+				"name" = "#toString(ARGUMENTS.document.name)#",
+				"serverId" = "#THIS.encodeServerID(toString(ARGUMENTS.document.serverId))#"
+			}
 
 			var execution = model.update(find, update);
 			var result = (execution.updated EQ 1);
@@ -112,21 +114,24 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 	private void function validateRead(string key, any value) {
 		
 		try{
-			var stringParameter = toString(ARGUMENTS.value);
+			if(CompareNoCase(TRIM(ARGUMENTS.value), "") EQ 0){
+				throw(type="InvalidData", message="Invalid value parameter");
+			}
 
 			if(CompareNoCase(TRIM(ARGUMENTS.key), "") EQ 0){
 				throw(type="InvalidData", message="Invalid key parameter");
 			}
 		}
 		catch(any e){
-			throw(type="InvalidData", message="Invalid value parameter");	
+			throw(type="InvalidData", message="Invalid parameters");	
 		}
 	}
 
 	private void function validateCreate(struct document) {
 		
 		if(isStruct(ARGUMENTS.document)){
-			//Validatind name
+
+			//Validating name
 			if(structKeyExists(ARGUMENTS.document, "name")){
 				if(CompareNoCase(TRIM(ARGUMENTS.document.name), "") EQ 0){
 					throw(type="InvalidData", message="Empty name attribute");
@@ -186,7 +191,15 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 		VARIABLES.validServer = VARIABLES.serverController.read("_key", "#ARGUMENTS.serverId#");
 
 		if(compareNoCase(VARIABLES.validServer, "") EQ 0){
-			throw(type="InvalidData", message="Invalid Server");
+			throw(type="InvalidData", message="Invalid Server: #ARGUMENTS.serverId#");
 		}
+	}
+
+	private string function encodeServerID(string serverId){
+		return 'servers/' & ARGUMENTS.serverId;
+	}
+
+	private string function decodeServerID(string serverId){
+		return replace(ARGUMENTS.serverId, 'servers/', '');
 	}
 }

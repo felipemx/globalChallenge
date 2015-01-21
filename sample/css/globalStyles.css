@@ -96,4 +96,8 @@ button[id='cancelar']{
 	background-color: #FF410D;
 }
 
+select{
+	display: block;
+}
+
 .oculto{display: none;}

@@ -130,11 +130,11 @@ function ApplicationComponent(){
 	}
 
 	this.getServer = function(){
-		return this.name;
+		return this.server;
 	}
 
 	this.setServer = function(paramServer){
-		this.name = paramServer;
+		this.server = paramServer;
 	}
 
 	this.getDefaultUrl = function(){
@@ -145,6 +145,7 @@ function ApplicationComponent(){
 	this.list = function(callbackFn){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'app/',
+		    data: {"id" : this.getServer()},
 		    type: 'GET'
 		}).done(function(result) {
 				callbackFn(JSON.parse(result));
@@ -172,7 +173,7 @@ function ApplicationComponent(){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'app/',
 		    type: 'POST',
-		    data: {"name" : this.getName(), "serverId" : this.getServer().getId() }
+		    data: {"name" : this.getName(), "serverId" : this.getServer()}
 		}).done(function(result) {
 				callbackFn(JSON.parse(result));
 			})
@@ -186,7 +187,7 @@ function ApplicationComponent(){
 		$.ajax({
 		    url: this.getDefaultUrl() + 'app/',
 		    type: 'PUT',
-		    data: {"id" : this.getId(), "name" : this.getName(), "serverId" : this.getServer().getId() }
+		    data: {"id" : this.getId(), "name" : this.getName(), "serverId" : this.getServer()}
 		}).done(function(result) {
 				callbackFn(result);
 			})

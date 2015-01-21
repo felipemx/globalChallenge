@@ -7,31 +7,33 @@
 
 	<script type="text/javascript" src="../jsapi/libs/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="../jsapi/GlobalChallengeAPI.js"></script>
-	<script type="text/javascript" src="js/indexController.js"></script>
+	<script type="text/javascript" src="js/aplicacoesController.js"></script>
 
 	<link rel="stylesheet" href="css/globalStyles.css">
 </head>
 
-<body onload="carregaServidores()">
+<body onload="carregaAplicacoes(location.search)">
 	<main>
-		<h1>Lista de Servidores</h1>
+		<h1>Lista de Aplicações</h1>
+		<h2>Servidor: </h2>
 
 		<table>
 			<thead>
 				<tr>
-					<th colspan="2">Nome do servidor</th>
+					<th colspan="2">Nome da aplicação</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td colspan="2"><a href="#" class="botao adicionar">+ Adicionar</a></td>
-				</tr>
 			</tbody>
 		</table>
 
 		<form action="#" accept-charset="utf-8" class="oculto">
-			<h2>Formulário de Servidor</h2>
-			<label>Nome do Servidor:<input type="text" name="nome" id="nome" value="" required title="Informe o nome do servidor"></label>
+			<h2>Formulário de Aplicação</h2>
+			<label>Nome da Aplicação:<input type="text" name="nome" id="nome" value="" required title="Informe o nome da aplicação"></label>
+
+			<label for="servidor">Escolha um servidor:</label>
+			<select name="servidor" id="servidor">
+			</select>
 			<input type="hidden" name="id" id="id" value="">
 			<button id="enviar" type="button" onclick="enviaFormulario()">Enviar</button>
 			<button id="cancelar" type="reset" onclick="desabilitaFormulario()">Cancelar</button>

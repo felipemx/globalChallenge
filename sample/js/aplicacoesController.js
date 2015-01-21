@@ -6,6 +6,7 @@ function mapStructure(vetor){
 	var estrutura = new Object();
 	var posicaoId = -1;
 	var posicaoNome = -1;
+	var posicaoServidor = -1;;
 
 	for(var i = 0; i < vetor.length; i++){
 		if(vetor[i].toLowerCase() == "_key"){
@@ -15,17 +16,29 @@ function mapStructure(vetor){
 		if(vetor[i].toLowerCase() == "name"){
 			posicaoNome = i;
 		}
+
+		if(vetor[i].toLowerCase() == "serverId"){
+			posicaoServidor = i;
+		}
 	}
 
 	estrutura.id = posicaoId;
 	estrutura.nome = posicaoNome;
+	estrutura.servidor = posicaoServidor;
 
 	return estrutura;
 }
 
-function carregaServidores(){
-	var servidor = new ServerComponent();
-	servidor.list(function(conteudo){
+function getURLParameter(parametro){
+	return parametro.replace('?','');
+}
+
+function carregaAplicacoes(servidor){
+	var aplicacao = new ApplicationComponent();
+	var idServidor = getURLParameter(servidor);
+
+	aplicacao.setServer('servers/' + idServidor);
+	aplicacao.list(function(conteudo){
 
 		var corpoTabela = document.querySelector('tbody');
 		var linhaInicial= this.criarLinhaInicialTabela();
@@ -33,10 +46,34 @@ function carregaServidores(){
 
 		corpoTabela.innerHTML = "";
 		corpoTabela.appendChild(linhaInicial);
-		
+
 		for(var i = 0; i < conteudo.DATA.length; i++){
 			var novaLinha = this.criarConteudoTabela(conteudo.DATA[i], estrutura);
 			corpoTabela.appendChild(novaLinha);
+		}
+
+	});
+}
+
+function listarServidores(){
+	var servidor = new ServerComponent();
+	servidor.list(function(conteudo){
+
+		var estrutura	= mapStructure(conteudo.COLUMNS);
+		var lista 		= document.querySelector('select');
+
+		for(var i = 0; i < conteudo.DATA.length; i++){
+			var itemServidor= conteudo.DATA[i];
+			var itemLista	= document.createElement('option');
+			itemLista.text 	= itemServidor[estrutura.nome];
+			itemLista.value = itemServidor[estrutura.id];
+
+
+			if(itemServidor[estrutura.id] == getURLParameter(location.search)){
+				itemLista.selected = true;
+			}
+
+			lista.appendChild(itemLista);
 		}
 
 	});
@@ -64,7 +101,7 @@ function criarLinhaInicialTabela(){
 	return linhaAdicionar;
 }
 
-function criarConteudoTabela(itemServidor, estrutura){
+function criarConteudoTabela(itemAplicacao, estrutura){
 
 	var linhaTabela = document.createElement("tr");
 	var celulaDescricao = document.createElement("td");
@@ -73,8 +110,7 @@ function criarConteudoTabela(itemServidor, estrutura){
 	var botaoEditar  = document.createElement("a");
 	var botaoRemover  = document.createElement("a");
 
-	descricao.setAttribute('href', 'apps.html?' + itemServidor[estrutura.id]);
-	descricao.textContent = itemServidor[estrutura.nome];
+	celulaDescricao.textContent = itemAplicacao[estrutura.nome];
 
 	botaoEditar.setAttribute('href', '#');
 	botaoEditar.textContent = '* Editar';
@@ -82,7 +118,7 @@ function criarConteudoTabela(itemServidor, estrutura){
 	botaoEditar.classList.add('editar');
 	botaoEditar.addEventListener("click", function(event){
 			event.preventDefault();
-			editaServidor(itemServidor, estrutura);
+			editaAplicacao(itemAplicacao, estrutura);
 		});
 
 	botaoRemover.setAttribute('href', '#');
@@ -91,7 +127,7 @@ function criarConteudoTabela(itemServidor, estrutura){
 	botaoRemover.classList.add('excluir');
 	botaoRemover.addEventListener("click", function(event){
 		event.preventDefault();
-		removeServidor(itemServidor[estrutura.id]);
+		removeAplicacao(itemAplicacao[estrutura.id]);
 	});
 
 	celulaDescricao.appendChild(descricao);
@@ -110,6 +146,7 @@ function habilitaFormulario(){
 	campoId.value = '';
 
 	formulario.reset();
+	listarServidores();
 	formulario.classList.remove('oculto');
 }
 
@@ -121,56 +158,66 @@ function desabilitaFormulario(){
 
 function enviaFormulario(){
 
-	var campoNome 	= document.querySelector('#nome');
-	var campoId 	= document.querySelector('#id');
-	var servidor 	= new ServerComponent();
+	var campoNome 		= document.querySelector('#nome');
+	var campoId 		= document.querySelector('#id');
+	var campoServidor	= document.querySelector('#servidor');
+	var aplicacao 		= new ApplicationComponent();
 
-	servidor.setId(campoId.value);
-	servidor.setName(campoNome.value);
+	aplicacao.setServer(campoServidor.options[campoServidor.selectedIndex].value);
+	aplicacao.setId(campoId.value);
+	aplicacao.setName(campoNome.value);
 
-	if(servidor.getId() == ''){
-		cadastrarServidor(servidor);
+	if(aplicacao.getId() == ''){
+		cadastrarAplicacao(aplicacao);
 	}
 	else{
-		atualizarServidor(servidor);
+		atualizarAplicacao(aplicacao);
 	}
 }
 
-function editaServidor(elemento, estrutura){
+function editaAplicacao(elemento, estrutura){
 	habilitaFormulario();
-	var campoNome = document.querySelector('#nome');
-	var campoId   = document.querySelector('#id');
+	var campoNome 		= document.querySelector('#nome');
+	var campoId   		= document.querySelector('#id');
+	var campoServidor	= document.querySelector('#servidor');
 	
 	campoNome.value = elemento[estrutura.nome];
 	campoId.value   = elemento[estrutura.id];
+
+	for(item in campoServidor){
+		if(item.value == elemento[estrutura.servidor]){
+			item.selected = true;
+			break;
+		}
+	}
 }
 
-function cadastrarServidor(servidor){
-	servidor.create(function(retorno){
+function cadastrarAplicacao(aplicacao){
+	aplicacao.create(function(retorno){
 		desabilitaFormulario();
-		carregaServidores();
+		carregaAplicacoes(location.search);
 	});
 }
 
-function atualizarServidor(servidor){
-	servidor.update(function(retorno){
+function atualizarAplicacao(aplicacao){
+	aplicacao.update(function(retorno){
 
 		if(retorno){
 			desabilitaFormulario();
-			carregaServidores();
+			carregaAplicacoes(location.search);
 		}
 	});
 }
 
-function removeServidor(id){
-	if(window.confirm('ATENÇÃO:\n\nTem certeza que deseja remover este servidor?\nIsto irá remover o servidor e suas respectivas aplicações!!!')){
+function removeAplicacao(id){
+	if(window.confirm('ATENÇÃO:\n\nTem certeza que deseja remover esta aplicação?')){
 
-		var servidor = new ServerComponent();
-		servidor.setId(id);
+		var aplicacao = new ApplicationComponent();
+		aplicacao.setId(id);
 
-		servidor.delete(function(retorno) {
+		aplicacao.delete(function(retorno) {
 			if(retorno){
-				carregaServidores();
+				carregaAplicacoes(location.search);
 			}
 		});
 	}

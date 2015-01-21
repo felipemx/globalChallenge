@@ -7,7 +7,7 @@
 
 component implements="interface.iGlobalChallengeWS" rest="true" restPath="/app"  {
 
-	remote string function listAll(numeric id restArgSource="query") httpmethod="GET" produces="application/JSON"{
+	remote string function listAll(string id restArgSource="query") httpmethod="GET" produces="application/JSON"{
 		var controller = createObject("component", "globalChallenge.app.controller.appController");
 		var response = controller.list(ARGUMENTS.id);
 
