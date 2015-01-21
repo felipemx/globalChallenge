@@ -24,7 +24,7 @@ component implements="interface.iGlobalChallengeWS" rest="true" restPath="/serve
 	remote string function create() httpmethod="POST" produces="application/JSON"{
 		var controller = createObject("component", "globalChallenge.app.controller.serverController");
 		var document = {
-			"_name" = name
+			"name" = name
 		};
 		var response = controller.create(document);
 
@@ -35,7 +35,7 @@ component implements="interface.iGlobalChallengeWS" rest="true" restPath="/serve
 		var controller = createObject("component", "globalChallenge.app.controller.serverController");
 		var document = {
 			"_key" = id,
-			"_name" = name
+			"name" = name
 		};
 		var response = controller.update(document);
 

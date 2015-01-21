@@ -1,15 +1,37 @@
+function mapStructure(vetor){
+	var estrutura = new Object();
+	var posicaoId = -1;
+	var posicaoNome = -1;
+
+	for(var i = 0; i < vetor.length; i++){
+		if(vetor[i].toLowerCase() == "_key"){
+			posicaoId = i;		
+		}
+
+		if(vetor[i].toLowerCase() == "name"){
+			posicaoNome = i;
+		}
+	}
+
+	estrutura.id = posicaoId;
+	estrutura.nome = posicaoNome;
+
+	return estrutura;
+}
+
 function carregaServidores(){
 	var servidor = new ServerComponent();
 	servidor.list(function(conteudo){
 
 		var corpoTabela = document.querySelector('tbody');
-		var linhaInicial = this.criarLinhaInicialTabela();
+		var linhaInicial= this.criarLinhaInicialTabela();
+		var estrutura	= mapStructure(conteudo.COLUMNS);
 
 		corpoTabela.innerHTML = "";
 		corpoTabela.appendChild(linhaInicial);
-
+		
 		for(var i = 0; i < conteudo.DATA.length; i++){
-			var novaLinha = this.criarConteudoTabela(conteudo.DATA[i]);
+			var novaLinha = this.criarConteudoTabela(conteudo.DATA[i], estrutura);
 			corpoTabela.appendChild(novaLinha);
 		}
 
@@ -38,7 +60,7 @@ function criarLinhaInicialTabela(){
 	return linhaAdicionar;
 }
 
-function criarConteudoTabela(itemServidor){
+function criarConteudoTabela(itemServidor, estrutura){
 
 	var linhaTabela = document.createElement("tr");
 	var celulaDescricao = document.createElement("td");
@@ -48,7 +70,7 @@ function criarConteudoTabela(itemServidor){
 	var botaoRemover  = document.createElement("a");
 
 	descricao.setAttribute('href', '#');
-	descricao.textContent = itemServidor[3];
+	descricao.textContent = itemServidor[estrutura.nome];
 
 	botaoEditar.setAttribute('href', '#');
 	botaoEditar.textContent = '* Editar';
@@ -56,7 +78,7 @@ function criarConteudoTabela(itemServidor){
 	botaoEditar.classList.add('editar');
 	botaoEditar.addEventListener("click", function(event){
 			event.preventDefault();
-			editaServidor(itemServidor);
+			editaServidor(itemServidor, estrutura);
 		});
 
 	botaoRemover.setAttribute('href', '#');
@@ -65,7 +87,7 @@ function criarConteudoTabela(itemServidor){
 	botaoRemover.classList.add('excluir');
 	botaoRemover.addEventListener("click", function(event){
 		event.preventDefault();
-		removeServidor(itemServidor[1]);
+		removeServidor(itemServidor[estrutura.id]);
 	});
 
 	celulaDescricao.appendChild(descricao);
@@ -80,14 +102,16 @@ function criarConteudoTabela(itemServidor){
 
 function habilitaFormulario(){
 	var formulario = document.querySelector('form');
-	formulario.classList.remove('oculto');
+	var campoId = document.querySelector('#id');
+	campoId.value = '';
 	formulario.reset();
+	formulario.classList.remove('oculto');
 }
 
 function desabilitaFormulario(){
 	var formulario = document.querySelector('form');
-	formulario.classList.add('oculto');
 	formulario.reset();
+	formulario.classList.add('oculto');
 }
 
 function enviaFormulario(){
@@ -107,24 +131,24 @@ function enviaFormulario(){
 	}
 }
 
-function editaServidor(elemento){
+function editaServidor(elemento, estrutura){
 	habilitaFormulario();
 	var campoNome = document.querySelector('#nome');
 	var campoId   = document.querySelector('#id');
 	
-	campoNome.value = elemento[3];
-	campoId.value   = elemento[1];
+	campoNome.value = elemento[estrutura.nome];
+	campoId.value   = elemento[estrutura.id];
 }
 
 function cadastrarServidor(servidor){
-	servidor.create(function(){
+	servidor.create(function(retorno){
 		desabilitaFormulario();
 		carregaServidores();
 	});
 }
 
 function atualizarServidor(servidor){
-	servidor.update(function(){
+	servidor.update(function(retorno){
 
 		if(retorno){
 			desabilitaFormulario();
