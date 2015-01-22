@@ -119,10 +119,8 @@ s = db.servers.firstExample({"name":"Cowboy"});
 
 db.apps.save({"name":"CandlestickApp", "serverId":s._id});
 
-» Falta implementar:
-   - Criar um exemplo de client:
-      - Servidores: Detalhar, alterar e excluir
-      - Aplicações: Listar, detalhar, alterar e excluir
+» Melhorias futuras:
+   - Criar funcionalidade de busca textual em servidores e aplicações
    - Produção de testes no Javascript
    - Utilizar um gerenciador de dependências
    - Melhorar a aplicação com a implementação de AngularJS
