@@ -35,7 +35,13 @@ function getURLParameter(parametro){
 
 function carregaAplicacoes(servidor){
 	var aplicacao = new ApplicationComponent();
-	var idServidor = getURLParameter(servidor);
+	var servidor = new ServerComponent();
+	var idServidor = getURLParameter(location.search);
+
+	servidor.setId(idServidor);
+	servidor.read(function(retorno){
+		escreveServidor(retorno);
+	});
 
 	aplicacao.setServer('servers/' + idServidor);
 	aplicacao.list(function(conteudo){
@@ -53,6 +59,15 @@ function carregaAplicacoes(servidor){
 		}
 
 	});
+}
+
+function escreveServidor(servidor){
+	var estruturaServidor = mapStructure(servidor.COLUMNS);
+	var dadosServidor = servidor.DATA[0];
+	var nomeServidor = dadosServidor[estruturaServidor.nome];
+
+	var subtitulo = document.querySelector('h2');
+	subtitulo.innerHTML = 'Servidor: ' + nomeServidor;
 }
 
 function listarServidores(){

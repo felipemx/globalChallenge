@@ -35,12 +35,11 @@ component output="false" extends="baseController" implements="interface.iGlobalC
 		try{
 			var parameter = toString(value);
 			var result = model.read(ARGUMENTS.key, parameter);
+			var resultJSON = "";
 
-			if(result.RecordCount EQ 0){
-				return "";
+			if(result.RecordCount GT 0){
+				resultJSON = serializeJSON(result);
 			}
-
-			var resultJSON = serializeJSON(result);
 			
 			return resultJSON;
 		}
